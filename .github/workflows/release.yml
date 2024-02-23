@@ -6,28 +6,22 @@ on:
       - relWorkflow
 
 jobs:
-  test:
-    name: Docker Compose Test
-    runs-on: ubuntu-latest
-
-    services:
-      mysql:
-        image: mysql:latest
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: root_password
-          MYSQL_DATABASE: test_db
-
-      phpmyadmin:
-        image: phpmyadmin/phpmyadmin:latest
-        ports:
-          - 8080:80
-        depends_on:
-          - mysql
-        env:
-          PMA_HOST: mysql
-          MYSQL_ROOT_PASSWORD: root_password
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    - name: Install Docker Compose
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y docker-compose
+    - name: Build and Start Containers
+      run: docker-compose up --build -d
+    - name: Wait for Services to Start
+      run: sleep 30
+    - name: Run Tests
+      run: |
+        curl -sSf http://localhost:8080
+    - name: Tear Down Containers
+      run: docker-compose down
 
   build_package:
     name: Build and Package
