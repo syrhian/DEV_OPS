@@ -5,10 +5,11 @@ services:
     image: mysql:latest
     ports:
       - "3307:3307"
-    env_file:
-      - .env
+#   env_file:
+#      - .env
     environment:
       MYSQL_DATABASE: mysql-srv
+      MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
