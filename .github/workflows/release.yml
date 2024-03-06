@@ -40,13 +40,15 @@ jobs:
           docker tag mon_image:latest mon_image:$(git rev-parse --short $GITHUB_SHA)
 
   scan_security:
-    name: Scan Security
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-      - name: Scan Docker Image
-        run: |
+  name: Scan Security
+  runs-on: ubuntu-latest
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+    - name: Scan Docker Image
+      run: |
+        docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/ aquasec/trivy mon_image:latest
+
 
   release:
     name: Release
