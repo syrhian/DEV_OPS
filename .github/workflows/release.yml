@@ -47,7 +47,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Scan Docker Image
         run: |
-          docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v $(pwd):/root/ aquasec/trivy mon_image:latest
 
 
   release:
