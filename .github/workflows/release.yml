@@ -66,7 +66,7 @@ jobs:
 
       - name: Bump Version
         run: |
-          bumpversion minor
+          bumpversion minor --new-version
 
       - name: Create Release
         id: create_release
