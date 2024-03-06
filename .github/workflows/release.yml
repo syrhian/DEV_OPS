@@ -54,28 +54,18 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-
       - name: Generate Release Notes
         run: |
           git log --format='%h %s' $(git describe --tags --abbrev=0)..HEAD > release_notes.txt
           cat release_notes.txt
-
-      - name: Install bumpversion
-        run: |
-          pip install bumpversion
-
-      - name: Bump Version
-        run: |
-          bumpversion minor --new-version
-
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ env.VERSION }}
-          release_name: Release v${{ env.VERSION }}
+          tag_name: v1.0.0
+          release_name: Release v1.0.0
           body: |
             Docker PHPMyadmin et MySql
           draft: false
