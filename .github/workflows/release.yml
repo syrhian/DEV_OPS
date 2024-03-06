@@ -47,7 +47,6 @@ jobs:
         uses: actions/checkout@v2
       - name: Scan Docker Image
         run: |
-          # Utiliser un outil de scan de sécurité comme Clair, Trivy, etc. sur l'image Docker
 
   release:
     name: Release
